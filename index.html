@@ -37,7 +37,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden; /* Empêche le débordement hors de la grille en bas */
+            overflow: visible; /* Retour à l'état d'origine pour les auras */
             width: 100%;
             height: 100%;
         }
@@ -50,8 +50,17 @@
             transition: transform 0.2s;
         }
 
+        /* Réduction légère de la taille de twiksface pour éviter le débordement bas */
+        #twiksface {
+            transform: scale(0.9);
+        }
+
         .dofus-wrapper:hover {
             transform: scale(1.06);
+        }
+        
+        #twiksface:hover {
+            transform: scale(0.96);
         }
 
         .dofus-bg {
@@ -142,6 +151,16 @@
             60% { transform: scale(0.97); }
             100% { transform: scale(1); }
         }
+        
+        #twiksface.anim-pulse {
+            animation: lifePulseTwiks 1.5s ease-in-out;
+        }
+        @keyframes lifePulseTwiks {
+            0% { transform: scale(0.9); }
+            30% { transform: scale(0.98); filter: drop-shadow(0 0 18px rgba(255, 255, 255, 1)); }
+            60% { transform: scale(0.87); }
+            100% { transform: scale(0.9); }
+        }
 
         .dofus-wrapper.anim-burst .dofus-color img {
             animation: lifeBurst 1s ease-in-out;
@@ -160,6 +179,15 @@
             40% { transform: translateY(-10px); filter: drop-shadow(0 10px 15px rgba(255, 255, 255, 0.6)); }
             100% { transform: translateY(0); }
         }
+        
+        #twiksface.anim-float {
+            animation: lifeFloatTwiks 1.6s ease-in-out;
+        }
+        @keyframes lifeFloatTwiks {
+            0% { transform: translateY(0) scale(0.9); }
+            40% { transform: translateY(-10px) scale(0.9); filter: drop-shadow(0 10px 15px rgba(255, 255, 255, 0.6)); }
+            100% { transform: translateY(0) scale(0.9); }
+        }
 
         .dofus-wrapper.anim-glitch {
             animation: lifeGlitch 0.4s ease-in-out;
@@ -171,6 +199,17 @@
             75% { transform: scale(1.05, 0.95); }
             100% { transform: scale(1) skewX(0deg); }
         }
+        
+        #twiksface.anim-glitch {
+            animation: lifeGlitchTwiks 0.4s ease-in-out;
+        }
+        @keyframes lifeGlitchTwiks {
+            0% { transform: scale(0.9) skewX(0deg); }
+            25% { transform: scale(0.99, 0.81) skewX(-4deg); }
+            50% { transform: scale(0.81, 0.99) skewX(4deg); }
+            75% { transform: scale(0.945, 0.855); }
+            100% { transform: scale(0.9) skewX(0deg); }
+        }
 
         .dofus-wrapper.anim-spin {
             animation: lifeSpin 1.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -179,6 +218,15 @@
             0% { transform: rotate(0deg) scale(1); }
             50% { transform: rotate(180deg) scale(1.05); }
             100% { transform: rotate(360deg) scale(1); }
+        }
+        
+        #twiksface.anim-spin {
+            animation: lifeSpinTwiks 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        @keyframes lifeSpinTwiks {
+            0% { transform: rotate(0deg) scale(0.9); }
+            50% { transform: rotate(180deg) scale(0.945); }
+            100% { transform: rotate(360deg) scale(0.9); }
         }
 
         .dofus-wrapper.anim-rock {
@@ -191,6 +239,17 @@
             60% { transform: translateX(-2px) rotate(-1.5deg); }
             80% { transform: translateX(2px) rotate(1.5deg); }
         }
+        
+        #twiksface.anim-rock {
+            animation: lifeRockTwiks 1.5s ease-in-out;
+        }
+        @keyframes lifeRockTwiks {
+            0%, 100% { transform: translateX(0) rotate(0deg) scale(0.9); }
+            20% { transform: translateX(-4px) rotate(-3deg) scale(0.9); }
+            40% { transform: translateX(4px) rotate(3deg) scale(0.9); }
+            60% { transform: translateX(-2px) rotate(-1.5deg) scale(0.9); }
+            80% { transform: translateX(2px) rotate(1.5deg) scale(0.9); }
+        }
 
         .dofus-wrapper.anim-squish {
             animation: lifeSquish 1s ease-in-out;
@@ -200,6 +259,16 @@
             30% { transform: scale(1.15, 0.8); }
             60% { transform: scale(0.85, 1.12); }
             75% { transform: scale(1.03, 0.97); }
+        }
+        
+        #twiksface.anim-squish {
+            animation: lifeSquishTwiks 1s ease-in-out;
+        }
+        @keyframes lifeSquishTwiks {
+            0%, 100% { transform: scale(0.9, 0.9); }
+            30% { transform: scale(1.035, 0.72); }
+            60% { transform: scale(0.765, 1.008); }
+            75% { transform: scale(0.927, 0.873); }
         }
 
         .dofus-wrapper.anim-hue .dofus-color img {
@@ -218,6 +287,16 @@
             20% { transform: scale(1.08); }
             40% { transform: scale(1.02); }
             60% { transform: scale(1.15); filter: drop-shadow(0 0 16px rgba(255, 255, 255, 1)); }
+        }
+        
+        #twiksface.anim-heartbeat {
+            animation: lifeHeartbeatTwiks 0.6s ease-in-out;
+        }
+        @keyframes lifeHeartbeatTwiks {
+            0%, 100% { transform: scale(0.9); }
+            20% { transform: scale(0.972); }
+            40% { transform: scale(0.918); }
+            60% { transform: scale(1.035); filter: drop-shadow(0 0 16px rgba(255, 255, 255, 1)); }
         }
 
         .dofus-wrapper.anim-ghost {
@@ -249,6 +328,22 @@
             70% { transform: translate(-1px, 1px); }
             80% { transform: translate(2px, -2px); }
             90% { transform: translate(-1px, -1px); }
+        }
+        
+        #twiksface.anim-quake {
+            animation: lifeQuakeTwiks 0.35s linear;
+        }
+        @keyframes lifeQuakeTwiks {
+            0%, 100% { transform: translate(0, 0) scale(0.9); }
+            10% { transform: translate(-2px, -1px) scale(0.9); }
+            20% { transform: translate(1px, 2px) scale(0.9); }
+            30% { transform: translate(-1px, -2px) scale(0.9); }
+            40% { transform: translate(2px, 1px) scale(0.9); }
+            50% { transform: translate(-2px, 2px) scale(0.9); }
+            60% { transform: translate(1px, -1px) scale(0.9); }
+            70% { transform: translate(-1px, 1px) scale(0.9); }
+            80% { transform: translate(2px, -2px) scale(0.9); }
+            90% { transform: translate(-1px, -1px) scale(0.9); }
         }
 
         .dofus-wrapper.anim-eclipse {
@@ -409,7 +504,11 @@
                 const chosenAnim = availableAnimations[Math.floor(Math.random() * availableAnimations.length)];
                 lastAnimation = chosenAnim;
 
-                randomEgg.className = 'dofus-wrapper active';
+                if (randomEgg.id === 'twiksface') {
+                    randomEgg.className = 'dofus-wrapper active';
+                } else {
+                    randomEgg.className = 'dofus-wrapper active';
+                }
                 void randomEgg.offsetWidth; 
                 randomEgg.classList.add(chosenAnim);
 
