@@ -33,94 +33,399 @@
         }
 
         .dofus-container {
+            position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: visible;
+            width: 100%;
+            height: 100%;
         }
 
-        .dofus {
+        .dofus-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .dofus-wrapper:hover {
+            transform: scale(1.06);
+        }
+
+        .dofus-bg {
             width: 100%;
             height: 100%;
             object-fit: contain;
             padding: 2px;
             box-sizing: border-box;
             filter: grayscale(100%) brightness(25%);
-            cursor: pointer;
-            transition: filter 0.3s, transform 0.2s;
         }
 
-        .dofus:hover {
-            transform: scale(1.06);
+        .dofus-color {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 0%;
+            overflow: hidden;
+            transition: height 0.3s ease-in-out;
+            pointer-events: none;
         }
 
-        .dofus.active {
-            filter: grayscale(0%) brightness(100%) drop-shadow(0 0 12px rgba(255, 255, 255, 0.85));
+        .dofus-color img {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            object-fit: contain;
+            padding: 2px;
+            box-sizing: border-box;
+            filter: grayscale(0%) brightness(100%);
+        }
+
+        .dofus-wrapper.active .dofus-color {
+            height: 100%;
+        }
+
+        .dofus-wrapper.active {
+            filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.85));
+        }
+
+        .sparkles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .dofus-wrapper.active .sparkles {
+            opacity: 1;
+        }
+
+        .sparkle {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            animation: blink infinite alternate ease-in-out;
+        }
+
+        @keyframes blink {
+            0% { opacity: 0.1; transform: scale(0.6); }
+            100% { opacity: 1; transform: scale(1.3); }
+        }
+
+        .dofus-wrapper.anim-shake {
+            animation: lifeShake 1.2s ease-in-out;
+        }
+        @keyframes lifeShake {
+            0% { transform: rotate(0deg); }
+            15% { transform: rotate(-6deg); }
+            30% { transform: rotate(5deg); }
+            45% { transform: rotate(-4deg); }
+            60% { transform: rotate(3deg); }
+            75% { transform: rotate(-1deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        .dofus-wrapper.anim-pulse {
+            animation: lifePulse 1.5s ease-in-out;
+        }
+        @keyframes lifePulse {
+            0% { transform: scale(1); }
+            30% { transform: scale(1.08); filter: drop-shadow(0 0 18px rgba(255, 255, 255, 1)); }
+            60% { transform: scale(0.97); }
+            100% { transform: scale(1); }
+        }
+
+        .dofus-wrapper.anim-burst .dofus-color img {
+            animation: lifeBurst 1s ease-in-out;
+        }
+        @keyframes lifeBurst {
+            0% { filter: brightness(100%); }
+            40% { filter: brightness(170%) saturate(120%); }
+            100% { filter: brightness(100%); }
+        }
+
+        .dofus-wrapper.anim-float {
+            animation: lifeFloat 1.6s ease-in-out;
+        }
+        @keyframes lifeFloat {
+            0% { transform: translateY(0); }
+            40% { transform: translateY(-10px); filter: drop-shadow(0 10px 15px rgba(255, 255, 255, 0.6)); }
+            100% { transform: translateY(0); }
+        }
+
+        .dofus-wrapper.anim-glitch {
+            animation: lifeGlitch 0.4s ease-in-out;
+        }
+        @keyframes lifeGlitch {
+            0% { transform: scale(1) skewX(0deg); }
+            25% { transform: scale(1.1, 0.9) skewX(-4deg); }
+            50% { transform: scale(0.9, 1.1) skewX(4deg); }
+            75% { transform: scale(1.05, 0.95); }
+            100% { transform: scale(1) skewX(0deg); }
+        }
+
+        .dofus-wrapper.anim-spin {
+            animation: lifeSpin 1.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        @keyframes lifeSpin {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.05); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+
+        .dofus-wrapper.anim-rock {
+            animation: lifeRock 1.5s ease-in-out;
+        }
+        @keyframes lifeRock {
+            0%, 100% { transform: translateX(0) rotate(0deg); }
+            20% { transform: translateX(-4px) rotate(-3deg); }
+            40% { transform: translateX(4px) rotate(3deg); }
+            60% { transform: translateX(-2px) rotate(-1.5deg); }
+            80% { transform: translateX(2px) rotate(1.5deg); }
+        }
+
+        .dofus-wrapper.anim-squish {
+            animation: lifeSquish 1s ease-in-out;
+        }
+        @keyframes lifeSquish {
+            0%, 100% { transform: scale(1, 1); }
+            30% { transform: scale(1.15, 0.8); }
+            60% { transform: scale(0.85, 1.12); }
+            75% { transform: scale(1.03, 0.97); }
+        }
+
+        .dofus-wrapper.anim-hue .dofus-color img {
+            animation: lifeHue 1.6s ease-in-out;
+        }
+        @keyframes lifeHue {
+            0%, 100% { filter: hue-rotate(0deg); }
+            50% { filter: hue-rotate(90deg) brightness(120%); }
+        }
+
+        .dofus-wrapper.anim-heartbeat {
+            animation: lifeHeartbeat 0.6s ease-in-out;
+        }
+        @keyframes lifeHeartbeat {
+            0%, 100% { transform: scale(1); }
+            20% { transform: scale(1.08); }
+            40% { transform: scale(1.02); }
+            60% { transform: scale(1.15); filter: drop-shadow(0 0 16px rgba(255, 255, 255, 1)); }
+        }
+
+        .dofus-wrapper.anim-ghost {
+            animation: lifeGhostWrapper 1.2s ease-in-out;
+        }
+        @keyframes lifeGhostWrapper {
+            0%, 100% { filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.85)); }
+            30% { filter: drop-shadow(0 -15px 20px rgba(255, 255, 255, 0.6)) cubic-bezier(0.1, 0.8, 0.3, 1); }
+        }
+        .dofus-wrapper.anim-ghost .dofus-color img {
+            animation: lifeGhostBase 1.2s ease-in-out;
+        }
+        @keyframes lifeGhostBase {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            30% { transform: scale(1.05); }
+        }
+
+        .dofus-wrapper.anim-quake {
+            animation: lifeQuake 0.35s linear;
+        }
+        @keyframes lifeQuake {
+            0%, 100% { transform: translate(0, 0); }
+            10% { transform: translate(-2px, -1px); }
+            20% { transform: translate(1px, 2px); }
+            30% { transform: translate(-1px, -2px); }
+            40% { transform: translate(2px, 1px); }
+            50% { transform: translate(-2px, 2px); }
+            60% { transform: translate(1px, -1px); }
+            70% { transform: translate(-1px, 1px); }
+            80% { transform: translate(2px, -2px); }
+            90% { transform: translate(-1px, -1px); }
+        }
+
+        .dofus-wrapper.anim-eclipse {
+            animation: lifeEclipse 1.4s ease-in-out;
+        }
+        @keyframes lifeEclipse {
+            0%, 100% { filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.85)); }
+            40% { filter: drop-shadow(0 0 25px rgba(0, 220, 255, 1)); }
+        }
+        .dofus-wrapper.anim-eclipse .dofus-color img {
+            animation: lifeEclipseImg 1.4s ease-in-out;
+        }
+        @keyframes lifeEclipseImg {
+            0%, 100% { filter: brightness(100%); }
+            40% { filter: brightness(35%); }
         }
     </style>
 </head>
 <body>
 
     <div class="grid">
-        <div class="dofus-container"><img src="img/dofawa.png" id="dofawa" class="dofus" alt="Dofawa"></div>
-        <div class="dofus-container"><img src="img/argente.png" id="argente" class="dofus" alt="Argenté"></div>
-        <div class="dofus-container"><img src="img/cawotte.png" id="cawotte" class="dofus" alt="Cawotte"></div>
-        <div class="dofus-container"><img src="img/dokoko.png" id="dokoko" class="dofus" alt="Dokoko"></div>
-        <div class="dofus-container"><img src="img/veilleurs.png" id="veilleurs" class="dofus" alt="Veilleurs"></div>
+        <div class="dofus-container"><div class="dofus-wrapper" id="dofawa"><img src="img/dofawa.png" class="dofus-bg" alt="Dofawa"><div class="dofus-color"><img src="img/dofawa.png"></div><div class="sparkles"></div></div></div>
+        <div class="dofus-container"><div class="dofus-wrapper" id="argente"><img src="img/argente.png" class="dofus-bg" alt="Argenté"><div class="dofus-color"><img src="img/argente.png"></div><div class="sparkles"></div></div></div>
+        <div class="dofus-container"><div class="dofus-wrapper" id="cawotte"><img src="img/cawotte.png" class="dofus-bg" alt="Cawotte"><div class="dofus-color"><img src="img/cawotte.png"></div><div class="sparkles"></div></div></div>
+        <div class="dofus-container"><div class="dofus-wrapper" id="dokoko"><img src="img/dokoko.png" class="dofus-bg" alt="Dokoko"><div class="dofus-color"><img src="img/dokoko.png"></div><div class="sparkles"></div></div></div>
+        <div class="dofus-container"><div class="dofus-wrapper" id="veilleurs"><img src="img/veilleurs.png" class="dofus-bg" alt="Veilleurs"><div class="dofus-color"><img src="img/veilleurs.png"></div><div class="sparkles"></div></div></div>
         
-        <div class="dofus-container"><img src="img/emeraude.png" id="emeraude" class="dofus" alt="Émeraude"></div>
-        <div class="dofus-container"><img src="img/kaliptus.png" id="kaliptus" class="dofus" alt="Kaliptus"></div>
-        <div class="dofus-container"><img src="img/pourpre.png" id="pourpre" class="dofus" alt="Pourpre"></div>
-        <div class="dofus-container"><img src="img/domakuro.png" id="domakuro" class="dofus" alt="Domakuro"></div>
-        <div class="dofus-container"><img src="img/dorigami.png" id="dorigami" class="dofus" alt="Dorigami"></div>
+        <div class="dofus-container"><div class="dofus-wrapper" id="emeraude"><img src="img/emeraude.png" class="dofus-bg" alt="Émeraude"><div class="dofus-color"><img src="img/emeraude.png"></div><div class="sparkles"></div></div></div>
+        <div class="dofus-container"><div class="dofus-wrapper" id="kaliptus"><img src="img/kaliptus.png" class="dofus-bg" alt="Kaliptus"><div class="dofus-color"><img src="img/kaliptus.png"></div><div class="sparkles"></div></div></div>
+        <div class="dofus-container"><div class="dofus-wrapper" id="pourpre"><img src="img/pourpre.png" class="dofus-bg" alt="Pourpre"><div class="dofus-color"><img src="img/pourpre.png"></div><div class="sparkles"></div></div></div>
+        <div class="dofus-container"><div class="dofus-wrapper" id="domakuro"><img src="img/domakuro.png" class="dofus-bg" alt="Domakuro"><div class="dofus-color"><img src="img/domakuro.png"></div><div class="sparkles"></div></div></div>
+        <div class="dofus-container"><div class="dofus-wrapper" id="dorigami"><img src="img/dorigami.png" class="dofus-bg" alt="Dorigami"><div class="dofus-color"><img src="img/dorigami.png"></div><div class="sparkles"></div></div></div>
         
-        <div class="dofus-container"><img src="img/turquoise.png" id="turquoise" class="dofus" alt="Turquoise"></div>
-        <div class="dofus-container"><img src="img/ocre.png" id="ocre" class="dofus" alt="Ocre"></div>
-        <div class="dofus-container"><img src="img/dofoozbz.png" id="dofoozbz" class="dofus" alt="Dofoozbz"></div>
-        <div class="dofus-container"><img src="img/glaces.png" id="glaces" class="dofus" alt="Glaces"></div>
-        <div class="dofus-container"><img src="img/nebuleux.png" id="nebuleux" class="dofus" alt="Nébuleux"></div>
+        <div class="dofus-container"><div class="dofus-wrapper" id="turquoise"><img src="img/turquoise.png" class="dofus-bg" alt="Turquoise"><div class="dofus-color"><img src="img/turquoise.png"></div><div class="sparkles"></div></div></div>
+        <div class="dofus-container"><div class="dofus-wrapper" id="ocre"><img src="img/ocre.png" class="dofus-bg" alt="Ocre"><div class="dofus-color"><img src="img/ocre.png"></div><div class="sparkles"></div></div></div>
+        <div class="dofus-container"><div class="dofus-wrapper" id="dofoozbz"><img src="img/dofoozbz.png" class="dofus-bg" alt="Dofoozbz"><div class="dofus-color"><img src="img/dofoozbz.png"></div><div class="sparkles"></div></div></div>
+        <div class="dofus-container"><div class="dofus-wrapper" id="glaces"><img src="img/glaces.png" class="dofus-bg" alt="Glaces"><div class="dofus-color"><img src="img/glaces.png"></div><div class="sparkles"></div></div></div>
+        <div class="dofus-container"><div class="dofus-wrapper" id="nebuleux"><img src="img/nebuleux.png" class="dofus-bg" alt="Nébuleux"><div class="dofus-color"><img src="img/nebuleux.png"></div><div class="sparkles"></div></div></div>
         
-        <div class="dofus-container"><img src="img/abyssal.png" id="abyssal" class="dofus" alt="Abyssal"></div>
-        <div class="dofus-container"><img src="img/ivoire.png" id="ivoire" class="dofus" alt="Ivoire"></div>
-        <div class="dofus-container"><img src="img/ebene.png" id="ebene" class="dofus" alt="Ébène"></div>
-        <div class="dofus-container"><img src="img/argente-scintillant.png" id="argente-scintillant" class="dofus" alt="Argenté Scintillant"></div>
-        <div class="dofus-container"><img src="img/vulbis.png" id="vulbis" class="dofus" alt="Vulbis"></div>
+        <div class="dofus-container"><div class="dofus-wrapper" id="abyssal"><img src="img/abyssal.png" class="dofus-bg" alt="Abyssal"><div class="dofus-color"><img src="img/abyssal.png"></div><div class="sparkles"></div></div></div>
+        <div class="dofus-container"><div class="dofus-wrapper" id="ivoire"><img src="img/ivoire.png" class="dofus-bg" alt="Ivoire"><div class="dofus-color"><img src="img/ivoire.png"></div><div class="sparkles"></div></div></div>
+        <div class="dofus-container"><div class="dofus-wrapper" id="ebene"><img src="img/ebene.png" class="dofus-bg" alt="Ébène"><div class="dofus-color"><img src="img/ebene.png"></div><div class="sparkles"></div></div></div>
+        <div class="dofus-container"><div class="dofus-wrapper" id="argente-scintillant"><img src="img/argente-scintillant.png" class="dofus-bg" alt="Argenté Scintillant"><div class="dofus-color"><img src="img/argente-scintillant.png"></div><div class="sparkles"></div></div></div>
+        <div class="dofus-container"><div class="dofus-wrapper" id="vulbis"><img src="img/vulbis.png" class="dofus-bg" alt="Vulbis"><div class="dofus-color"><img src="img/vulbis.png"></div><div class="sparkles"></div></div></div>
         
-        <div class="dofus-container"><img src="img/forgelave.png" id="forgelave" class="dofus" alt="Forgelave"></div>
-        <div class="dofus-container"><img src="img/tachete.png" id="tachete" class="dofus" alt="Tacheté"></div>
-        <div class="dofus-container"><img src="img/cauchemar.png" id="cauchemar" class="dofus" alt="Cauchemar"></div>
-        <div class="dofus-container"><img src="img/sylvestre.png" id="sylvestre" class="dofus" alt="Sylvestre"></div>
-        <div class="dofus-container"><img src="img/twiksface.png" id="twiksface" class="dofus" alt="Twiksface"></div>
+        <div class="dofus-container"><div class="dofus-wrapper" id="forgelave"><img src="img/forgelave.png" class="dofus-bg" alt="Forgelave"><div class="dofus-color"><img src="img/forgelave.png"></div><div class="sparkles"></div></div></div>
+        <div class="dofus-container"><div class="dofus-wrapper" id="tachete"><img src="img/tachete.png" class="dofus-bg" alt="Tacheté"><div class="dofus-color"><img src="img/tachete.png"></div><div class="sparkles"></div></div></div>
+        <div class="dofus-container"><div class="dofus-wrapper" id="cauchemar"><img src="img/cauchemar.png" class="dofus-bg" alt="Cauchemar"><div class="dofus-color"><img src="img/cauchemar.png"></div><div class="sparkles"></div></div></div>
+        <div class="dofus-container"><div class="dofus-wrapper" id="sylvestre"><img src="img/sylvestre.png" class="dofus-bg" alt="Sylvestre"><div class="dofus-color"><img src="img/sylvestre.png"></div><div class="sparkles"></div></div></div>
+        
+        <div class="dofus-container">
+            <div class="dofus-wrapper active" id="twiksface">
+                <img src="img/twiksface.png" class="dofus-bg" alt="Twiksface">
+                <div class="dofus-color"><img src="img/twiksface.png" alt="Twiksface"></div>
+                <div class="sparkles"></div>
+            </div>
+        </div>
     </div>
 
     <script>
         const storageKey = 'tracker_dofus_progression';
+        let lastAnimation = '';
+        let timerLife = null;
+
+        document.querySelectorAll('.sparkles').forEach(container => {
+            for (let i = 0; i < 12; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.classList.add('sparkle');
+                const size = (Math.random() * 2.5 + 1.5).toFixed(1);
+                sparkle.style.width = `${size}px`;
+                sparkle.style.height = `${size}px`;
+                sparkle.style.top = `${Math.random() * 90 + 5}%`;
+                sparkle.style.left = `${Math.random() * 90 + 5}%`;
+                sparkle.style.animationDuration = `${Math.random() * 0.7 + 0.5}s`;
+                sparkle.style.animationDelay = `${Math.random() * 1}s`;
+                container.appendChild(sparkle);
+            }
+        });
 
         function loadProgression() {
             const saved = localStorage.getItem(storageKey);
             if (saved) {
                 const activeIds = JSON.parse(saved);
                 activeIds.forEach(id => {
-                    const el = document.getElementById(id);
-                    if (el) el.classList.add('active');
+                    if (id !== 'twiksface') {
+                        const el = document.getElementById(id);
+                        if (el) el.classList.add('active');
+                    }
                 });
             }
         }
 
         function saveProgression() {
-            const activeDofus = document.querySelectorAll('.dofus.active');
+            const activeDofus = document.querySelectorAll('.dofus-wrapper.active:not(#twiksface)');
             const activeIds = Array.from(activeDofus).map(el => el.id);
             localStorage.setItem(storageKey, JSON.stringify(activeIds));
         }
 
-        document.querySelectorAll('.dofus').forEach(dofus => {
-            dofus.addEventListener('click', () => {
-                dofus.classList.toggle('active');
-                saveProgression();
+        document.querySelectorAll('.dofus-wrapper').forEach(wrapper => {
+            wrapper.addEventListener('click', () => {
+                if (wrapper.id === 'twiksface') {
+                    forceEvent();
+                } else {
+                    wrapper.classList.toggle('active');
+                    saveProgression();
+                }
             });
         });
 
-        loadProgression();
+        function resizeInnerImages() {
+            const height = document.querySelector('.dofus-bg').clientHeight;
+            document.querySelectorAll('.dofus-color img').forEach(img => {
+                img.style.height = height + 'px';
+            });
+        }
+
+        function triggerRandomLife() {
+            const activeEggs = Array.from(document.querySelectorAll('.dofus-wrapper.active:not(#twiksface)'));
+            
+            if (activeEggs.length > 0) {
+                const randomEgg = activeEggs[Math.floor(Math.random() * activeEggs.length)];
+                const animations = [
+                    'anim-shake', 'anim-pulse', 'anim-burst', 'anim-float', 'anim-glitch',
+                    'anim-spin', 'anim-rock', 'anim-squish', 'anim-hue',
+                    'anim-heartbeat', 'anim-ghost', 'anim-quake', 'anim-eclipse'
+                ];
+                
+                let availableAnimations = animations.filter(anim => anim !== lastAnimation);
+                const chosenAnim = availableAnimations[Math.floor(Math.random() * availableAnimations.length)];
+                lastAnimation = chosenAnim;
+
+                randomEgg.classList.add(chosenAnim);
+
+                setTimeout(() => {
+                    randomEgg.classList.remove(chosenAnim);
+                }, 1700);
+            }
+
+            const nextInterval = Math.floor(Math.random() * (20000 - 10000 + 1)) + 10000;
+            timerLife = setTimeout(triggerRandomLife, nextInterval);
+        }
+
+        function forceEvent() {
+            if (timerLife) clearTimeout(timerLife);
+            
+            const activeEggs = Array.from(document.querySelectorAll('.dofus-wrapper.active:not(#twiksface)'));
+            if (activeEggs.length > 0) {
+                const randomEgg = activeEggs[Math.floor(Math.random() * activeEggs.length)];
+                const animations = [
+                    'anim-shake', 'anim-pulse', 'anim-burst', 'anim-float', 'anim-glitch',
+                    'anim-spin', 'anim-rock', 'anim-squish', 'anim-hue',
+                    'anim-heartbeat', 'anim-ghost', 'anim-quake', 'anim-eclipse'
+                ];
+                
+                let availableAnimations = animations.filter(anim => anim !== lastAnimation);
+                const chosenAnim = availableAnimations[Math.floor(Math.random() * availableAnimations.length)];
+                lastAnimation = chosenAnim;
+
+                randomEgg.className = 'dofus-wrapper active';
+                void randomEgg.offsetWidth; 
+                randomEgg.classList.add(chosenAnim);
+
+                setTimeout(() => {
+                    randomEgg.classList.remove(chosenAnim);
+                }, 1700);
+            }
+
+            const nextInterval = Math.floor(Math.random() * (20000 - 10000 + 1)) + 10000;
+            timerLife = setTimeout(triggerRandomLife, nextInterval);
+        }
+
+        window.addEventListener('load', () => {
+            loadProgression();
+            resizeInnerImages();
+            timerLife = setTimeout(triggerRandomLife, 4000);
+        });
+        window.addEventListener('resize', resizeInnerImages);
     </script>
 
 </body>
