@@ -3,19 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tracker de Dofus</title>
+    <title>Tracker de Dofus - Overlay OBS</title>
     <link rel="icon" type="image/x-icon" href="img/favicon.ico">
     <style>
         body {
-            background-color: #121212;
-            color: #ffffff;
-            font-family: sans-serif;
+            background-color: transparent; /* Fond invisible pour OBS */
+            margin: 0;
+            padding: 2vh;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            margin: 0;
-            padding: 2vh;
             box-sizing: border-box;
             overflow: hidden;
         }
@@ -26,12 +24,10 @@
             grid-template-rows: repeat(5, 1fr);
             gap: 1vh;
             padding: 2vh;
-            background: #1e1e1e;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+            background: transparent; /* Fond de la grille invisible */
             width: auto;
             height: 90vh;
-            max-width: 95vw; /* Empêche le débordement en largeur */
+            max-width: 95vw;
             aspect-ratio: 6 / 5;
             box-sizing: border-box;
         }
@@ -40,14 +36,14 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: visible; /* Permet à la lueur de dépasser sans être coupée */
+            overflow: visible;
         }
 
         .dofus {
             width: 100%;
             height: 100%;
             object-fit: contain;
-            padding: 12px; /* Espace interne pour que l'aura ne soit pas "crop" par les bords de l'image */
+            padding: 12px;
             box-sizing: border-box;
             filter: grayscale(100%) brightness(25%);
             cursor: pointer;
